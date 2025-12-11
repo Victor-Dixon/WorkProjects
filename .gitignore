@@ -1,1 +1,26 @@
-ok buddy
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+.env
+
+# Build / packaging
+build/
+dist/
+*.egg-info/
+
+# Tooling caches
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Editors & OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
