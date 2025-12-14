@@ -1,11 +1,11 @@
-# ARIA Games Portfolio
+# Battle Tetris - Classic Tetris Friends Style Game
 
-A collection of interactive web-based games featuring ARIA (AI-powered character) in competitive gameplay scenarios.
+A modern web-based implementation of competitive Tetris gameplay inspired by Tetris Friends and Battle Tetris. Features simultaneous multiplayer, advanced AI opponents, and classic Tetris mechanics.
 
 ## Projects
 
-### 🧩 Tetris Battle
-Classic Tetris gameplay with simultaneous multiplayer mode. Features include:
+### 🧩 Battle Tetris
+Classic competitive Tetris gameplay with simultaneous multiplayer mode. Features include:
 - Real-time competitive Tetris gameplay
 - T-spin detection and bonuses
 - Combo system with progressive multipliers

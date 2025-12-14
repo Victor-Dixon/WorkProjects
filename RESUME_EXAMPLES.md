@@ -1,10 +1,10 @@
-# Resume Examples - ARIA Games Portfolio
+# Resume Examples - Battle Tetris Portfolio
 
 ## Project-Specific Resume Entries
 
-### 🧩 Tetris Battle Game
+### 🧩 Battle Tetris Game
 
-**Project:** Tetris Battle - Competitive Multiplayer Tetris  
+**Project:** Battle Tetris - Competitive Multiplayer Tetris (Tetris Friends Style)  
 **Role:** Full-Stack Developer  
 **Technologies:** JavaScript (ES6+), HTML5, CSS3, Canvas API
 
@@ -130,7 +130,7 @@ Developed a turn-based combat system featuring strategic gameplay with multiple 
 
 ### Projects Summary
 
-**ARIA Games Portfolio** - Interactive Web Games Collection
+**Battle Tetris** - Competitive Tetris Game Collection
 - Developed 3 complete games from scratch
 - Implemented advanced AI systems
 - Created adaptive learning mechanisms

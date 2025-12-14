@@ -1,8 +1,8 @@
-# Professional Code Review - ARIA Games Portfolio
+# Professional Code Review - Battle Tetris Portfolio
 
 **Reviewer:** Technical Assessment  
 **Date:** December 13, 2024  
-**Project:** ARIA Games - Interactive Web Games Collection
+**Project:** Battle Tetris - Competitive Tetris Game (Tetris Friends Style)
 
 ## Overall Assessment: ⭐⭐⭐⭐⭐ (5/5)
 

@@ -1,8 +1,8 @@
-# Security Audit Report - ARIA Games
+# Security Audit Report - Battle Tetris
 
 **Date:** December 13, 2024  
 **Auditor:** Automated Security Review  
-**Project:** ARIA Games Portfolio
+**Project:** Battle Tetris - Competitive Tetris Game
 
 ## Executive Summary
 
