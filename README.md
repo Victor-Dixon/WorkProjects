@@ -67,3 +67,13 @@ You can also pass `--data /path/to/file.json` for command-specific overrides. Th
 - Run `python3 -m compileall -q terminal_organizer` to ensure syntax correctness.
 - Add automated tests or additional tooling as you evolve the project.
 - Contributions: open pull requests describing the workflow changes or new commands.
+
+## Partner-facing API (operational isolation)
+
+This repo also includes a minimal FastAPI service that preserves isolation:
+
+- **Immutable core (read-only)** + hash verification
+- **Partner namespace-bound writes** (token → namespace)
+- **TLS-ready** (example reverse proxy config)
+
+See `isolation_api/README.md`.

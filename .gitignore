@@ -38,3 +38,6 @@ npm-debug.log*
 # Temporary files
 *.tmp
 *.temp
+
+# Partner API runtime data (append-only logs)
+isolation_api/data/
