@@ -23,9 +23,19 @@
           </div>
         </div>
 
-        <div class="statusWrap" aria-live="polite">
-          <span class="statusDot" id="statusDot" aria-hidden="true"></span>
-          <span class="statusText" id="statusText">Idle</span>
+        <div class="topRight">
+          <div class="topActions">
+            <button class="btn btnGhost btnSmall" id="btnFocus" type="button">
+              Focus
+            </button>
+            <button class="btn btnGhost btnSmall" id="btnWake" type="button">
+              Keep awake
+            </button>
+          </div>
+          <div class="statusWrap" aria-live="polite">
+            <span class="statusDot" id="statusDot" aria-hidden="true"></span>
+            <span class="statusText" id="statusText">Idle</span>
+          </div>
         </div>
       </header>
 
@@ -42,6 +52,9 @@
             <button class="btn btnGhost" id="btnReset" type="button">
               Reset
             </button>
+            <button class="btn btnGhost" id="btnFullscreen" type="button">
+              Fullscreen
+            </button>
           </div>
 
           <details class="secondaryPanel">
@@ -56,6 +69,15 @@
               </div>
             </div>
           </details>
+
+          <div class="petals" aria-hidden="true">
+            <span class="petal p1"></span>
+            <span class="petal p2"></span>
+            <span class="petal p3"></span>
+            <span class="petal p4"></span>
+            <span class="petal p5"></span>
+            <span class="petal p6"></span>
+          </div>
         </div>
 
         <div class="sideCard">
@@ -106,6 +128,128 @@
         </div>
       </section>
 
+      <section class="extras" aria-label="Notes, settings, and history">
+        <div class="panel">
+          <div class="cardTitle">Session notes</div>
+          <div class="grid2">
+            <label class="field">
+              <span class="fieldLabel">Strain</span>
+              <input id="noteStrain" type="text" maxlength="80" placeholder="e.g. Gelato" />
+            </label>
+            <label class="field">
+              <span class="fieldLabel">Vibe</span>
+              <input id="noteVibe" type="text" maxlength="80" placeholder="e.g. chill / creative" />
+            </label>
+            <label class="field">
+              <span class="fieldLabel">Where</span>
+              <input id="noteWhere" type="text" maxlength="80" placeholder="e.g. couch" />
+            </label>
+            <label class="field">
+              <span class="fieldLabel">Rating (1–5)</span>
+              <select id="noteRating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4" selected>4</option>
+                <option value="5">5</option>
+              </select>
+            </label>
+          </div>
+          <div class="row">
+            <label class="field">
+              <span class="fieldLabel">Tags (comma-separated)</span>
+              <input id="noteTags" type="text" maxlength="160" placeholder="e.g. social, music, hungry" />
+            </label>
+          </div>
+          <div class="row">
+            <label class="field">
+              <span class="fieldLabel">Notes</span>
+              <textarea id="noteText" rows="3" maxlength="400" placeholder="Anything you wanna remember..."></textarea>
+            </label>
+          </div>
+          <div class="micro">
+            These attach to the current session and get saved into History when it finishes.
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="cardTitle">Settings</div>
+          <div class="toggles">
+            <label class="toggle">
+              <input id="setSound" type="checkbox" />
+              <span class="toggleUi"></span>
+              <span class="toggleText">Sound on finish</span>
+            </label>
+            <label class="toggle">
+              <input id="setConfetti" type="checkbox" />
+              <span class="toggleUi"></span>
+              <span class="toggleText">Confetti on finish</span>
+            </label>
+            <label class="toggle">
+              <input id="setReminders" type="checkbox" />
+              <span class="toggleUi"></span>
+              <span class="toggleText">Halfway check-in</span>
+            </label>
+          </div>
+          <div class="row">
+            <label class="field">
+              <span class="fieldLabel">Check-in message</span>
+              <input id="setReminderMsg" type="text" maxlength="120" value="hydrate + vibe check" />
+            </label>
+          </div>
+          <div class="divider"></div>
+          <div class="toggles">
+            <label class="toggle">
+              <input id="setConfirmEnd" type="checkbox" />
+              <span class="toggleUi"></span>
+              <span class="toggleText">Confirm at auto-finish (optional)</span>
+            </label>
+            <label class="toggle">
+              <input id="setIdleFinish" type="checkbox" />
+              <span class="toggleUi"></span>
+              <span class="toggleText">Auto-finish if idle</span>
+            </label>
+          </div>
+          <div class="row">
+            <label class="field">
+              <span class="fieldLabel">Idle minutes</span>
+              <input
+                id="setIdleMinutes"
+                type="number"
+                inputmode="numeric"
+                min="2"
+                max="60"
+                step="1"
+                value="10"
+              />
+            </label>
+          </div>
+          <div class="micro">
+            Confirm-at-end will still auto-finish by itself after a short countdown — you can just extend if you want.
+          </div>
+        </div>
+
+        <div class="panel panelWide">
+          <div class="historyTop">
+            <div>
+              <div class="cardTitle">History</div>
+              <div class="micro" id="totalsToday">Today: —</div>
+            </div>
+            <div class="historyActions">
+              <button class="btn btnGhost btnSmall" id="btnExport" type="button">
+                Export JSON
+              </button>
+              <button class="btn btnWarn btnSmall" id="btnClear" type="button">
+                Clear history
+              </button>
+            </div>
+          </div>
+          <div class="historyList" id="historyList" aria-label="Session history list">
+            <!-- populated by JS -->
+          </div>
+        </div>
+      </section>
+
       <section class="lower" aria-label="Messages and command bar">
         <div class="panel">
           <div class="cardTitle">Messages</div>
@@ -140,14 +284,15 @@
             <input
               id="commandInput"
               type="text"
-              placeholder="Type: smoke / done / reset (then press Enter)"
+              placeholder="Type: smoke / done / reset / focus / awake / export"
               aria-label="Command input"
             />
             <button class="btn btnGhost" type="submit">Run</button>
           </form>
           <div class="micro">
             Commands: <code>smoke</code>, <code>done</code>, <code>reset</code>,
-            <code>help</code>.
+            <code>focus</code>, <code>awake</code>, <code>export</code>,
+            <code>clear</code>, <code>help</code>.
           </div>
         </div>
       </section>
@@ -158,6 +303,30 @@
         </div>
       </footer>
     </main>
+
+    <canvas id="confettiCanvas" class="confetti" aria-hidden="true"></canvas>
+
+    <div class="modalHost" id="modalHost" hidden>
+      <div class="modalBackdrop" data-modal-close="true"></div>
+      <div class="modal" role="dialog" aria-modal="true" aria-label="Auto-finish reached">
+        <div class="modalTitle">Auto-finish reached</div>
+        <div class="modalBody" id="modalBody">
+          Flowr is about to finish this session.
+        </div>
+        <div class="modalCountdown" id="modalCountdown">Auto-finishing in —</div>
+        <div class="modalActions">
+          <button class="btn btnPrimary" id="btnModalFinish" type="button">
+            Finish
+          </button>
+          <button class="btn btnGhost" id="btnModalPlus15" type="button">
+            +15 min
+          </button>
+          <button class="btn btnGhost" id="btnModalPlus30" type="button">
+            +30 min
+          </button>
+        </div>
+      </div>
+    </div>
 
     <div class="toastHost" id="toastHost" aria-live="polite"></div>
     <script src="./app.js"></script>
