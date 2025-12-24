@@ -771,10 +771,17 @@ body.isConfetti .confetti {
   margin-top: 12px;
 }
 
-body.isFocus .hero,
 body.isFocus .extras,
 body.isFocus .lower,
 body.isFocus .footer {
+  display: none;
+}
+
+body.isFocus .hero {
+  grid-template-columns: 1fr;
+}
+
+body.isFocus .sideCard {
   display: none;
 }
 
