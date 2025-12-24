@@ -79,6 +79,18 @@ body {
   backdrop-filter: blur(10px);
 }
 
+.topRight {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.topActions {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+}
+
 .brand {
   display: flex;
   gap: 12px;
@@ -156,6 +168,8 @@ body {
 
 .timerCard {
   padding: 18px 18px 14px;
+  position: relative;
+  overflow: hidden;
 }
 
 .timerLabel {
@@ -227,6 +241,12 @@ body {
   background: rgba(255, 84, 104, 0.12);
   border-color: rgba(255, 84, 104, 0.22);
   color: rgba(255, 255, 255, 0.9);
+}
+
+.btnSmall {
+  padding: 8px 10px;
+  border-radius: 12px;
+  font-size: 13px;
 }
 
 .secondaryPanel {
@@ -345,8 +365,26 @@ input[type="number"] {
   outline: none;
 }
 
+select,
+textarea {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.18);
+  color: rgba(255, 255, 255, 0.92);
+  padding: 10px 12px;
+  outline: none;
+  font-family: var(--sans);
+}
+
+textarea {
+  resize: vertical;
+}
+
 input[type="text"]:focus,
-input[type="number"]:focus {
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
   border-color: rgba(255, 79, 216, 0.45);
   box-shadow: 0 0 0 3px rgba(255, 79, 216, 0.14);
 }
@@ -356,6 +394,181 @@ input[type="number"]:focus {
   font-size: 13px;
   line-height: 1.35;
   margin-top: 8px;
+}
+
+.extras {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.panelWide {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 920px) {
+  .extras {
+    grid-template-columns: 1fr;
+  }
+}
+
+.toggles {
+  display: grid;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.toggle {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.toggleUi {
+  width: 44px;
+  height: 26px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  position: relative;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.toggleUi::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  transition: transform 0.18s ease;
+}
+
+.toggleText {
+  font-weight: 850;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.toggle input:checked + .toggleUi {
+  background: rgba(75, 247, 165, 0.14);
+  border-color: rgba(75, 247, 165, 0.32);
+}
+
+.toggle input:checked + .toggleUi::after {
+  transform: translateX(18px);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.historyTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.historyActions {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.historyList {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.historyItem {
+  padding: 12px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  gap: 10px;
+}
+
+.historyMain {
+  display: grid;
+  gap: 6px;
+}
+
+.historyLine1 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.historyTime {
+  font-family: var(--mono);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.historyDur {
+  font-family: var(--mono);
+  color: rgba(255, 255, 255, 0.76);
+  font-weight: 800;
+}
+
+.pillRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.pillAccent {
+  border-color: rgba(255, 79, 216, 0.22);
+  background: rgba(255, 79, 216, 0.08);
+}
+
+.historyMeta {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+.historyRight {
+  display: grid;
+  gap: 8px;
+  justify-items: end;
+  align-content: start;
+}
+
+.btnTiny {
+  padding: 7px 9px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.emptyState {
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .lower {
@@ -449,4 +662,127 @@ code {
     transform: translateY(0);
     opacity: 1;
   }
+}
+
+.petals {
+  position: absolute;
+  right: -22px;
+  bottom: -26px;
+  width: 180px;
+  height: 180px;
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+
+body.isRunning .petals {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.petal {
+  position: absolute;
+  inset: 38px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 79, 216, 0.55), rgba(75, 247, 165, 0.18));
+  transform-origin: 50% 110%;
+  animation: petalPulse 1.6s ease-in-out infinite;
+  opacity: 0.7;
+}
+
+.petal.p1 { transform: rotate(0deg); }
+.petal.p2 { transform: rotate(60deg); }
+.petal.p3 { transform: rotate(120deg); }
+.petal.p4 { transform: rotate(180deg); }
+.petal.p5 { transform: rotate(240deg); }
+.petal.p6 { transform: rotate(300deg); }
+
+@keyframes petalPulse {
+  0%, 100% { opacity: 0.62; }
+  50% { opacity: 0.82; }
+}
+
+.confetti {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 40;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+body.isConfetti .confetti {
+  opacity: 1;
+}
+
+.modalHost {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+}
+
+.modalBackdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+}
+
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(520px, calc(100% - 28px));
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(10, 10, 14, 0.78);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.62);
+  padding: 14px 14px;
+}
+
+.modalTitle {
+  font-weight: 950;
+  letter-spacing: -0.03em;
+  font-size: 16px;
+}
+
+.modalBody {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 14px;
+  margin-top: 8px;
+  line-height: 1.25;
+}
+
+.modalCountdown {
+  margin-top: 10px;
+  font-family: var(--mono);
+  color: rgba(255, 255, 255, 0.86);
+  font-weight: 900;
+}
+
+.modalActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+body.isFocus .hero,
+body.isFocus .extras,
+body.isFocus .lower,
+body.isFocus .footer {
+  display: none;
+}
+
+body.isFocus .app {
+  width: min(760px, calc(100% - 24px));
+  margin-top: 18px;
+}
+
+body.isFocus .timerCard {
+  padding: 22px 18px 18px;
 }
