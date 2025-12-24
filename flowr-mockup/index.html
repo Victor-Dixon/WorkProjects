@@ -12,6 +12,18 @@
   </head>
   <body>
     <div class="bg" aria-hidden="true"></div>
+    <div class="screenSmoke screenSmokeLeft" aria-hidden="true">
+      <span class="puff s1"></span>
+      <span class="puff s2"></span>
+      <span class="puff s3"></span>
+      <span class="puff s4"></span>
+    </div>
+    <div class="screenSmoke screenSmokeRight" aria-hidden="true">
+      <span class="puff s1"></span>
+      <span class="puff s2"></span>
+      <span class="puff s3"></span>
+      <span class="puff s4"></span>
+    </div>
 
     <main class="app">
       <header class="topbar">
@@ -43,22 +55,43 @@
         <div class="timerCard">
           <div class="timerLabel">Smoke clock</div>
 
-          <div class="smokeClock" aria-label="Smoke clock progress">
-            <svg class="clockSvg" viewBox="0 0 120 120" aria-hidden="true">
+          <div class="cartoonClock" aria-label="Cartoon smoke clock">
+            <svg class="cartoonClockSvg" viewBox="0 0 240 240" aria-hidden="true">
               <defs>
-                <linearGradient id="flowrRing" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="rgba(255,79,216,0.95)" />
-                  <stop offset="100%" stop-color="rgba(75,247,165,0.92)" />
-                </linearGradient>
+                <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="rgba(0,0,0,0.55)" />
+                </filter>
               </defs>
-              <circle class="clockTrack" cx="60" cy="60" r="46"></circle>
-              <circle
-                class="clockRing"
-                id="clockRing"
-                cx="60"
-                cy="60"
-                r="46"
-              ></circle>
+
+              <!-- outer bezel -->
+              <path
+                class="czBezel"
+                d="M120 22c55 0 98 43 98 98s-43 98-98 98S22 175 22 120 65 22 120 22Z"
+              />
+              <!-- face -->
+              <circle class="czFace" cx="120" cy="120" r="82" />
+              <!-- little shine -->
+              <path class="czShine" d="M70 66c18-20 48-28 72-16c-18-2-44 8-58 24c-7 8-12 18-14 28c-5-12-5-25 0-36Z" />
+
+              <!-- ticks -->
+              <g class="czTicks" aria-hidden="true">
+                <line x1="120" y1="46" x2="120" y2="58" />
+                <line x1="120" y1="182" x2="120" y2="194" />
+                <line x1="46" y1="120" x2="58" y2="120" />
+                <line x1="182" y1="120" x2="194" y2="120" />
+                <line x1="72" y1="72" x2="80" y2="80" />
+                <line x1="168" y1="168" x2="160" y2="160" />
+                <line x1="168" y1="72" x2="160" y2="80" />
+                <line x1="72" y1="168" x2="80" y2="160" />
+              </g>
+
+              <!-- hands -->
+              <g id="clockHands" class="czHands" style="transform-origin: 120px 120px">
+                <path id="clockHandMain" class="czHandMain" d="M118 120 L122 120 L130 70 Q120 60 110 70 Z" />
+                <path id="clockHandTail" class="czHandTail" d="M118 122 L122 122 L126 150 Q120 154 114 150 Z" />
+              </g>
+              <circle class="czPin" cx="120" cy="120" r="9" />
+              <circle class="czPin2" cx="120" cy="120" r="4" />
             </svg>
 
             <div class="clockCenter">

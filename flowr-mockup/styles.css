@@ -180,37 +180,76 @@ body {
   letter-spacing: 0.12em;
 }
 
-.smokeClock {
+.cartoonClock {
   margin-top: 14px;
   display: grid;
   place-items: center;
   position: relative;
-  padding: 10px 0;
+  padding: 10px 0 6px;
 }
 
-.clockSvg {
-  width: min(420px, 92%);
+.cartoonClockSvg {
+  width: min(460px, 95%);
   height: auto;
   display: block;
-  filter: drop-shadow(0 18px 48px rgba(0, 0, 0, 0.55));
+  filter: drop-shadow(0 18px 48px rgba(0, 0, 0, 0.6));
 }
 
-.clockTrack {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.08);
+.czBezel {
+  fill: rgba(255, 255, 255, 0.12);
+  stroke: rgba(5, 5, 9, 0.78);
+  stroke-width: 10;
+  stroke-linejoin: round;
+}
+
+.czFace {
+  fill: rgba(255, 230, 120, 0.92);
+  stroke: rgba(5, 5, 9, 0.78);
   stroke-width: 10;
 }
 
-.clockRing {
-  fill: none;
-  stroke: url(#flowrRing);
-  stroke-width: 10;
+.czShine {
+  fill: rgba(255, 255, 255, 0.18);
+  stroke: none;
+}
+
+.czTicks line {
+  stroke: rgba(5, 5, 9, 0.72);
+  stroke-width: 6;
   stroke-linecap: round;
+}
+
+.czHands {
   transform: rotate(-90deg);
-  transform-origin: 60px 60px;
-  stroke-dasharray: 289;
-  stroke-dashoffset: 289;
-  transition: stroke-dashoffset 0.25s ease;
+  transition: transform 0.25s ease;
+}
+
+body.isRunning .czHands {
+  transition: transform 0.12s ease;
+}
+
+.czHandMain {
+  fill: rgba(255, 79, 216, 0.88);
+  stroke: rgba(5, 5, 9, 0.78);
+  stroke-width: 6;
+  stroke-linejoin: round;
+}
+
+.czHandTail {
+  fill: rgba(75, 247, 165, 0.65);
+  stroke: rgba(5, 5, 9, 0.78);
+  stroke-width: 6;
+  stroke-linejoin: round;
+}
+
+.czPin {
+  fill: rgba(255, 255, 255, 0.16);
+  stroke: rgba(5, 5, 9, 0.78);
+  stroke-width: 6;
+}
+
+.czPin2 {
+  fill: rgba(5, 5, 9, 0.78);
 }
 
 .clockCenter {
@@ -845,4 +884,69 @@ body.isFocus .timerCard {
 
 body.isFocus .clockSvg {
   width: min(560px, 96%);
+}
+
+body.isFocus .cartoonClockSvg {
+  width: min(620px, 98%);
+}
+
+.screenSmoke {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 260px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.55;
+  filter: blur(0.2px);
+}
+
+.screenSmokeLeft {
+  left: -40px;
+}
+
+.screenSmokeRight {
+  right: -40px;
+  transform: scaleX(-1);
+}
+
+.puff {
+  position: absolute;
+  left: 40px;
+  top: 70%;
+  width: 130px;
+  height: 90px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 40%, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.02) 66%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  opacity: 0;
+  transform: translateX(-10px) translateY(20px) scale(0.7);
+  animation: puffUp 4.2s ease-in-out infinite;
+}
+
+body.isRunning .puff {
+  opacity: 1;
+}
+
+.puff.s1 { animation-delay: 0s; }
+.puff.s2 { animation-delay: 1.2s; top: 62%; width: 150px; height: 100px; }
+.puff.s3 { animation-delay: 2.4s; top: 74%; width: 120px; height: 80px; }
+.puff.s4 { animation-delay: 3.2s; top: 68%; width: 170px; height: 112px; }
+
+@keyframes puffUp {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px) translateY(30px) scale(0.65);
+  }
+  18% {
+    opacity: 0.55;
+  }
+  60% {
+    opacity: 0.35;
+    transform: translateX(40px) translateY(-120px) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(80px) translateY(-220px) scale(1.35);
+  }
 }

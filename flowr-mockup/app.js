@@ -286,12 +286,23 @@ function getTargetFinishTs(active) {
 }
 
 function setClockProgress(progress01) {
-  const ring = document.getElementById("clockRing");
-  if (!ring) return;
-  const C = 289; // matches CSS dasharray
   const p = clamp(Number(progress01 ?? 0), 0, 1);
-  const offset = C * (1 - p);
-  ring.style.strokeDashoffset = String(offset);
+
+  // New cartoon clock: rotate the hand around once per session.
+  const hands = document.getElementById("clockHands");
+  if (hands) {
+    // 0 -> 12 o'clock, 1 -> full circle
+    const deg = -90 + p * 360;
+    hands.style.transform = `rotate(${deg}deg)`;
+  }
+
+  // Back-compat (older ring clock) if it exists in DOM.
+  const ring = document.getElementById("clockRing");
+  if (ring) {
+    const C = 289; // matches old CSS dasharray
+    const offset = C * (1 - p);
+    ring.style.strokeDashoffset = String(offset);
+  }
 }
 
 function renderHistory(state) {
