@@ -41,9 +41,32 @@
 
       <section class="hero" aria-label="Timer">
         <div class="timerCard">
-          <div class="timerLabel">Elapsed</div>
-          <div class="timerValue" id="elapsed">00:00:00</div>
-          <div class="timerMeta" id="timerMeta">Tap “Smoked” to start.</div>
+          <div class="timerLabel">Smoke clock</div>
+
+          <div class="smokeClock" aria-label="Smoke clock progress">
+            <svg class="clockSvg" viewBox="0 0 120 120" aria-hidden="true">
+              <defs>
+                <linearGradient id="flowrRing" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="rgba(255,79,216,0.95)" />
+                  <stop offset="100%" stop-color="rgba(75,247,165,0.92)" />
+                </linearGradient>
+              </defs>
+              <circle class="clockTrack" cx="60" cy="60" r="46"></circle>
+              <circle
+                class="clockRing"
+                id="clockRing"
+                cx="60"
+                cy="60"
+                r="46"
+              ></circle>
+            </svg>
+
+            <div class="clockCenter">
+              <div class="clockTime" id="elapsed">00:00:00</div>
+              <div class="clockSub" id="timerMeta">Tap “Smoked” to start.</div>
+              <div class="clockMini" id="clockMini">—</div>
+            </div>
+          </div>
 
           <div class="primaryActions">
             <button class="btn btnPrimary" id="btnStart" type="button">

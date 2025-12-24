@@ -285,6 +285,15 @@ function getTargetFinishTs(active) {
   return Number(active.baseFinishTs) + Number(active.extensionMs ?? 0);
 }
 
+function setClockProgress(progress01) {
+  const ring = document.getElementById("clockRing");
+  if (!ring) return;
+  const C = 289; // matches CSS dasharray
+  const p = clamp(Number(progress01 ?? 0), 0, 1);
+  const offset = C * (1 - p);
+  ring.style.strokeDashoffset = String(offset);
+}
+
 function renderHistory(state) {
   const list = document.getElementById("historyList");
   const totalsToday = document.getElementById("totalsToday");
@@ -953,6 +962,20 @@ function main() {
         const left = Math.max(0, state.active.confirm.deadlineTs - now);
         modalCountdown.textContent = `Auto-finishing in ${Math.ceil(left / 1000)}s`;
       }
+
+      const total = Math.max(1, target - state.active.startTs);
+      const done = clamp((now - state.active.startTs) / total, 0, 1);
+      setClockProgress(state.active.finishTs ? 1 : done);
+
+      const mini = document.getElementById("clockMini");
+      if (mini) {
+        const leftMs = Math.max(0, target - now);
+        mini.textContent = `ends in ${formatHMS(leftMs)} • ${formatTime(target)}`;
+      }
+    } else {
+      setClockProgress(0);
+      const mini = document.getElementById("clockMini");
+      if (mini) mini.textContent = "—";
     }
   }, 250);
 }

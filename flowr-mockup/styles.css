@@ -180,18 +180,67 @@ body {
   letter-spacing: 0.12em;
 }
 
-.timerValue {
-  font-family: var(--mono);
-  font-size: clamp(44px, 6vw, 74px);
-  font-weight: 850;
-  letter-spacing: -0.06em;
-  margin-top: 10px;
+.smokeClock {
+  margin-top: 14px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  padding: 10px 0;
 }
 
-.timerMeta {
+.clockSvg {
+  width: min(420px, 92%);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 18px 48px rgba(0, 0, 0, 0.55));
+}
+
+.clockTrack {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 10;
+}
+
+.clockRing {
+  fill: none;
+  stroke: url(#flowrRing);
+  stroke-width: 10;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 60px 60px;
+  stroke-dasharray: 289;
+  stroke-dashoffset: 289;
+  transition: stroke-dashoffset 0.25s ease;
+}
+
+.clockCenter {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  pointer-events: none;
+  padding: 18px;
+}
+
+.clockTime {
+  font-family: var(--mono);
+  font-size: clamp(44px, 6vw, 76px);
+  font-weight: 950;
+  letter-spacing: -0.06em;
+}
+
+.clockSub {
   margin-top: 6px;
   color: var(--muted);
   font-size: 14px;
+}
+
+.clockMini {
+  margin-top: 10px;
+  font-family: var(--mono);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
 }
 
 .primaryActions {
@@ -792,4 +841,8 @@ body.isFocus .app {
 
 body.isFocus .timerCard {
   padding: 22px 18px 18px;
+}
+
+body.isFocus .clockSvg {
+  width: min(560px, 96%);
 }
