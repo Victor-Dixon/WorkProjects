@@ -115,7 +115,12 @@ def handle_update(args: argparse.Namespace, config: AppConfig, storage: BoardSto
 
 
 def handle_delete(args: argparse.Namespace, _: AppConfig, storage: BoardStorage) -> int:
-    deleted = storage.delete(args.identifier)
+    projects = storage.load()
+    project = find_project(projects, args.identifier)
+    if not project:
+        print(f"Project '{args.identifier}' not found.")
+        return 1
+    deleted = storage.delete(project.id)
     if not deleted:
         print(f"Project '{args.identifier}' not found.")
         return 1
