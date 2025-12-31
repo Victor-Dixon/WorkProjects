@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import hmac
 import json
+import string
 import os
 import time
 from dataclasses import dataclass
@@ -114,8 +115,17 @@ class PartnerContext:
 
 
 def _read_pinned_sha256(core_sha_file: Path) -> str:
-    # Accept either "hash" or "hash  filename" formats.
-    return core_sha_file.read_text(encoding="utf-8").strip().split()[0]
+    """
+    Accept either "hash" or "hash  filename" formats.
+    Return a validated lowercase sha256 hex string.
+    """
+    text = core_sha_file.read_text(encoding="utf-8").strip()
+    if not text:
+        raise ValueError("Pinned core SHA256 file is empty.")
+    sha = text.split()[0].strip().lower()
+    if len(sha) != 64 or any(c not in string.hexdigits for c in sha):
+        raise ValueError(f"Pinned core SHA256 is invalid: '{sha[:16]}…'")
+    return sha
 
 
 def _agents_root(settings: IsolationApiSettings) -> Path:
@@ -190,7 +200,11 @@ def create_app(settings: IsolationApiSettings | None = None) -> FastAPI:
         if not settings.core_file.exists() or not settings.core_sha_file.exists():
             raise HTTPException(status_code=500, detail="Core not initialized")
 
-        pinned = _read_pinned_sha256(settings.core_sha_file)
+        try:
+            pinned = _read_pinned_sha256(settings.core_sha_file)
+        except ValueError as e:
+            # Misconfigured pin = service can't guarantee immutability baseline
+            raise HTTPException(status_code=503, detail=str(e))
         current = sha256_file(settings.core_file)
         return {
             "core_sha256_current": current,
@@ -274,7 +288,12 @@ def create_app(settings: IsolationApiSettings | None = None) -> FastAPI:
                 for line in f:
                     if len(items) >= limit:
                         break
-                    items.append({"source": "core", **json.loads(line)})
+                    obj = json.loads(line)
+                    if isinstance(obj, dict):
+                        obj["source"] = "core"  # set LAST (cannot be overridden)
+                        items.append(obj)
+                    else:
+                        items.append({"source": "core", "value": obj})
 
         # agents (append-only logs per namespace)
         agents_root = _agents_root(settings)
@@ -289,7 +308,12 @@ def create_app(settings: IsolationApiSettings | None = None) -> FastAPI:
                     for line in f:
                         if len(items) >= limit:
                             break
-                        items.append({"source": f"agent:{ns_dir.name}", **json.loads(line)})
+                        obj = json.loads(line)
+                        if isinstance(obj, dict):
+                            obj["source"] = f"agent:{ns_dir.name}"  # set LAST (cannot be overridden)
+                            items.append(obj)
+                        else:
+                            items.append({"source": f"agent:{ns_dir.name}", "value": obj})
                 if len(items) >= limit:
                     break
 
@@ -300,4 +324,3 @@ def create_app(settings: IsolationApiSettings | None = None) -> FastAPI:
 
 # Uvicorn entry-point convenience: `uvicorn isolation_api.app:app`
 app = create_app()
-
